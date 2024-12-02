@@ -22,8 +22,8 @@ func Solve(part int, input []string) {
 }
 
 func Part1(input []string) {
-	var length = len(input)
-	var lefts, rights, err = readInput(input)
+	length := len(input)
+	lefts, rights, err := readInput(input)
 
 	if err != nil {
 		fmt.Println(err)
@@ -31,7 +31,7 @@ func Part1(input []string) {
 	}
 
 	for _, line := range input {
-		var splits = strings.Split(line, "   ")
+		splits := strings.Split(line, "   ")
 
 		left, err := strconv.ParseInt(splits[0], 10, 64)
 		if err != nil {
@@ -60,7 +60,7 @@ func Part1(input []string) {
 }
 
 func Part2(input []string) {
-	var lefts, rights, err = readInput(input)
+	lefts, rights, err := readInput(input)
 
 	if err != nil {
 		fmt.Println(err)
@@ -81,11 +81,12 @@ func Part2(input []string) {
 }
 
 func readInput(input []string) ([]int64, []int64, error) {
-	var lefts []int64
-	var rights []int64
+	length := len(input)
+	lefts := make([]int64, 0, length)
+	rights := make([]int64, 0, length)
 
 	for _, line := range input {
-		var splits = strings.Split(line, "   ")
+		splits := strings.Split(line, "   ")
 
 		left, err := strconv.ParseInt(splits[0], 10, 64)
 		if err != nil {

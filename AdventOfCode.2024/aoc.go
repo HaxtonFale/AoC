@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"os"
 
@@ -18,19 +19,20 @@ func main() {
 	var logFile string
 
 	flag.IntVar(&day, "d", 1, "Specify day.")
-	flag.IntVar(&part, "p", 0, "Specify part.")
+	flag.IntVar(&part, "p", 1, "Specify part.")
 	flag.IntVar(&input, "i", -1, "Specify input file.")
 	flag.StringVar(&logFile, "l", "", "Path to log file")
 	flag.Parse()
 
 	if logFile != "" {
-		f, err := os.OpenFile(logFile, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+		f, err := os.OpenFile(logFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0666)
 		if err != nil {
 			log.Fatalf("error opening file: %v", err)
 		}
 		defer f.Close()
 
-		log.SetOutput(f)
+		writer := io.MultiWriter(f, os.Stderr)
+		log.SetOutput(writer)
 	}
 
 	if input < 0 {

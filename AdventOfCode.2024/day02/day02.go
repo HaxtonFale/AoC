@@ -24,7 +24,7 @@ func Solve(part int, input []string) {
 func Part1(input []string) {
 	var safes int = 0
 	for _, line := range input {
-		var report, err = readReport(line)
+		report, err := readReport(line)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -55,9 +55,9 @@ func Part2(input []string) {
 			safes = safes + 1
 		} else {
 			log.Print("Testing report with a removed element...")
-			var length = len(report)
+			length := len(report)
 			var cpy []int64
-			var safe = false
+			safe := false
 			for i := 0; i < length && !safe; i++ {
 				cpy = slices.Delete(slices.Clone(report), i, i+1)
 
@@ -79,7 +79,7 @@ func readReport(line string) ([]int64, error) {
 	var report []int64
 
 	for _, str := range strings.Split(line, " ") {
-		var level, err = strconv.ParseInt(str, 10, 64)
+		level, err := strconv.ParseInt(str, 10, 64)
 		if err != nil {
 			return nil, err
 		}
@@ -90,16 +90,16 @@ func readReport(line string) ([]int64, error) {
 }
 
 func isSafe(report []int64) bool {
-	var length = len(report) - 1
+	length := len(report) - 1
 
-	var increasing = report[0] < report[1]
+	increasing := report[0] < report[1]
 	if increasing {
 		log.Print("Report is increasing.")
 	} else {
 		log.Print("Report is decreasing.")
 	}
 	for i := 0; i < length; i++ {
-		var diff = report[i+1] - report[i]
+		diff := report[i+1] - report[i]
 		if (diff > 0) != increasing {
 			log.Printf("Incorrect direction of gradient between %d and %d", report[i], report[i+1])
 			return false
