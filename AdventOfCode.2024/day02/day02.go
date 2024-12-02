@@ -17,7 +17,7 @@ func Solve(part int, input []string) {
 	case 2:
 		Part2(input)
 	default:
-		log.Fatal(fmt.Errorf("invalid part: %d", part))
+		log.Fatalf("invalid part: %d", part)
 	}
 }
 
@@ -93,6 +93,7 @@ func isSafe(report []int64) bool {
 	length := len(report) - 1
 
 	increasing := report[0] < report[1]
+
 	if increasing {
 		log.Print("Report is increasing.")
 	} else {
@@ -104,12 +105,13 @@ func isSafe(report []int64) bool {
 			log.Printf("Incorrect direction of gradient between %d and %d", report[i], report[i+1])
 			return false
 		}
-		if math.Abs(diff) < 1 {
-			log.Printf("Gradient too flat between %d and %d", report[i], report[i+1])
+		absDiff := math.Abs64(diff)
+		if absDiff < 1 {
+			log.Printf("Gradient %d too flat between %d and %d", absDiff, report[i], report[i+1])
 			return false
 		}
-		if math.Abs(diff) > 3 {
-			log.Printf("Gradient too steep between %d and %d", report[i], report[i+1])
+		if absDiff > 3 {
+			log.Printf("Gradient %d too steep between %d and %d", absDiff, report[i], report[i+1])
 			return false
 		}
 	}

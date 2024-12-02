@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"strings"
 
+	advslc "github.com/jkratz55/slices"
+
 	"aoc/math"
 )
 
@@ -17,12 +19,11 @@ func Solve(part int, input []string) {
 	case 2:
 		Part2(input)
 	default:
-		log.Fatal(fmt.Errorf("invalid part: %d", part))
+		log.Fatalf("invalid part: %d", part)
 	}
 }
 
 func Part1(input []string) {
-	length := len(input)
 	lefts, rights, err := readInput(input)
 
 	if err != nil {
@@ -30,33 +31,23 @@ func Part1(input []string) {
 		return
 	}
 
-	for _, line := range input {
-		splits := strings.Split(line, "   ")
-
-		left, err := strconv.ParseInt(splits[0], 10, 64)
-		if err != nil {
-			log.Fatal(fmt.Errorf("could not parse value: %s", splits[0]))
-		}
-		lefts = append(lefts, left)
-
-		right, err := strconv.ParseInt(splits[1], 10, 64)
-		if err != nil {
-			log.Fatal(fmt.Errorf("could not parse value: %s", splits[1]))
-		}
-		rights = append(rights, right)
-	}
-
 	slices.Sort(lefts)
 	slices.Sort(rights)
+	log.Printf("Lefts: %d", lefts)
+	log.Printf("Rights: %d", rights)
 
-	var distance int64 = 0
-	for i := 0; i < length; i++ {
-		var diff = lefts[i] - rights[i]
-
-		distance = distance + math.Abs(diff)
-	}
+	pairs := advslc.Zip(lefts, rights)
+	log.Printf("Pairs: %d", pairs)
+	distance := advslc.Reduce(pairs, addDistance, 0)
 
 	fmt.Println(distance)
+}
+
+func addDistance(distance int64, values advslc.Pair[int64, int64]) int64 {
+	log.Printf("Line: %d, %d", values.First, values.Second)
+	diff := math.Abs64(values.First - values.Second)
+	log.Printf("Distance: %d", diff)
+	return (distance + diff)
 }
 
 func Part2(input []string) {
@@ -86,7 +77,10 @@ func readInput(input []string) ([]int64, []int64, error) {
 	rights := make([]int64, 0, length)
 
 	for _, line := range input {
+		log.Printf("Reading line: %s", line)
 		splits := strings.Split(line, "   ")
+
+		log.Printf("Split: %s", splits)
 
 		left, err := strconv.ParseInt(splits[0], 10, 64)
 		if err != nil {

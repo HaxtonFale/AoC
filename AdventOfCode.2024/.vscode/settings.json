@@ -1,4 +1,9 @@
 {
 	"editor.insertSpaces": false,
-	"editor.renderWhitespace": "all"
+	"editor.renderWhitespace": "all",
+	"go.inlayHints.assignVariableTypes": true,
+	"go.inlayHints.constantValues": true,
+	"go.inlayHints.functionTypeParameters": true,
+	"go.inlayHints.parameterNames": true,
+	"go.inlayHints.rangeVariableTypes": true
 }
