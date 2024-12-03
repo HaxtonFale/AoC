@@ -12,6 +12,7 @@ import (
 
 	"aoc/day01"
 	"aoc/day02"
+	"aoc/day03"
 )
 
 func main() {
@@ -81,6 +82,8 @@ func main() {
 		day01.Solve(*part, lines)
 	case 2:
 		day02.Solve(*part, lines)
+	case 3:
+		day03.Solve(*part, lines)
 
 	default:
 		log.Fatalf("invalid day: %d", day)

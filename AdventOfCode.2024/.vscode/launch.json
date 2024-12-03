@@ -18,7 +18,7 @@
 			"type": "pickString",
 			"id": "day",
 			"description": "Which day do you want to run?",
-			"options": ["1", "2"]
+			"options": ["1", "2", "3"]
 		},
 		{
 			"type": "pickString",
