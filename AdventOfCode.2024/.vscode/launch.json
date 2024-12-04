@@ -18,7 +18,7 @@
 			"type": "pickString",
 			"id": "day",
 			"description": "Which day do you want to run?",
-			"options": ["1", "2", "3"]
+			"options": ["1", "2", "3", "4"]
 		},
 		{
 			"type": "pickString",
@@ -31,7 +31,7 @@
 			"id": "input",
 			"description": "Which input file do you want to read?",
 			"options": ["0", "1", "2"],
-			"default": "1"
+			"default": "0"
 		}
 	]
 }
